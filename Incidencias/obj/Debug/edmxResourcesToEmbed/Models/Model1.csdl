@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ClientesSet" EntityType="Model1.Clientes" />
+    <EntitySet Name="ProductosSet" EntityType="Model1.Productos" />
+    <AssociationSet Name="ClientesProductos" Association="Model1.ClientesProductos">
+      <End Role="Clientes" EntitySet="ClientesSet" />
+      <End Role="Productos" EntitySet="ProductosSet" />
+    </AssociationSet>
+    <EntitySet Name="CabeceraTicketsSet" EntityType="Model1.CabeceraTickets" />
+    <AssociationSet Name="ClientesCabeceraTickets" Association="Model1.ClientesCabeceraTickets">
+      <End Role="Clientes" EntitySet="ClientesSet" />
+      <End Role="CabeceraTickets" EntitySet="CabeceraTicketsSet" />
+    </AssociationSet>
+    <AssociationSet Name="ProductosCabeceraTickets" Association="Model1.ProductosCabeceraTickets">
+      <End Role="Productos" EntitySet="ProductosSet" />
+      <End Role="CabeceraTickets" EntitySet="CabeceraTicketsSet" />
+    </AssociationSet>
+    <EntitySet Name="LineasTicketSet" EntityType="Model1.LineasTicket" />
+    <EntitySet Name="TecnicosSet" EntityType="Model1.Tecnicos" />
+    <AssociationSet Name="TecnicosLineasTicket" Association="Model1.TecnicosLineasTicket">
+      <End Role="Tecnicos" EntitySet="TecnicosSet" />
+      <End Role="LineasTicket" EntitySet="LineasTicketSet" />
+    </AssociationSet>
+    <AssociationSet Name="LineasTicketCabeceraTickets" Association="Model1.LineasTicketCabeceraTickets">
+      <End Role="LineasTicket" EntitySet="LineasTicketSet" />
+      <End Role="CabeceraTickets" EntitySet="CabeceraTicketsSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Clientes">
+    <Key>
+      <PropertyRef Name="Cif" />
+    </Key>
+    <Property Name="Cif" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" MaxLength="9" />
+    <Property Name="Nombre" Type="String" Nullable="false" />
+    <Property Name="Direccion" Type="String" Nullable="false" />
+    <NavigationProperty Name="Productos" Relationship="Model1.ClientesProductos" FromRole="Clientes" ToRole="Productos" />
+    <NavigationProperty Name="CabeceraTickets" Relationship="Model1.ClientesCabeceraTickets" FromRole="Clientes" ToRole="CabeceraTickets" />
+  </EntityType>
+  <EntityType Name="Productos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" />
+    <NavigationProperty Name="Clientes" Relationship="Model1.ClientesProductos" FromRole="Productos" ToRole="Clientes" />
+    <NavigationProperty Name="CabeceraTickets" Relationship="Model1.ProductosCabeceraTickets" FromRole="Productos" ToRole="CabeceraTickets" />
+  </EntityType>
+  <Association Name="ClientesProductos">
+    <End Type="Model1.Clientes" Role="Clientes" Multiplicity="*" />
+    <End Type="Model1.Productos" Role="Productos" Multiplicity="*" />
+  </Association>
+  <EntityType Name="CabeceraTickets">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FechaApertura" Type="String" Nullable="false" />
+    <Property Name="FechaCierre" Type="String" Nullable="false" />
+    <Property Name="TiempoTotal" Type="Int32" Nullable="false" />
+    <Property Name="Facturable" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Clientes" Relationship="Model1.ClientesCabeceraTickets" FromRole="CabeceraTickets" ToRole="Clientes" />
+    <Property Name="ClientesCif" Type="String" Nullable="false" MaxLength="9" />
+    <NavigationProperty Name="Productos" Relationship="Model1.ProductosCabeceraTickets" FromRole="CabeceraTickets" ToRole="Productos" />
+    <Property Name="ProductosId" Type="Int32" Nullable="false" />
+    <Property Name="Tipo" Type="String" Nullable="false" />
+    <NavigationProperty Name="LineasTicket" Relationship="Model1.LineasTicketCabeceraTickets" FromRole="CabeceraTickets" ToRole="LineasTicket" />
+  </EntityType>
+  <Association Name="ClientesCabeceraTickets">
+    <End Type="Model1.Clientes" Role="Clientes" Multiplicity="1" />
+    <End Type="Model1.CabeceraTickets" Role="CabeceraTickets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="Cif" />
+      </Principal>
+      <Dependent Role="CabeceraTickets">
+        <PropertyRef Name="ClientesCif" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProductosCabeceraTickets">
+    <End Type="Model1.Productos" Role="Productos" Multiplicity="1" />
+    <End Type="Model1.CabeceraTickets" Role="CabeceraTickets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Productos">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CabeceraTickets">
+        <PropertyRef Name="ProductosId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="LineasTicket">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" Nullable="false" />
+    <Property Name="Tiempo" Type="String" Nullable="false" />
+    <NavigationProperty Name="Tecnicos" Relationship="Model1.TecnicosLineasTicket" FromRole="LineasTicket" ToRole="Tecnicos" />
+    <NavigationProperty Name="CabeceraTickets" Relationship="Model1.LineasTicketCabeceraTickets" FromRole="LineasTicket" ToRole="CabeceraTickets" />
+  </EntityType>
+  <EntityType Name="Tecnicos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" />
+    <Property Name="Correo" Type="String" Nullable="false" />
+    <NavigationProperty Name="LineasTicket" Relationship="Model1.TecnicosLineasTicket" FromRole="Tecnicos" ToRole="LineasTicket" />
+  </EntityType>
+  <Association Name="TecnicosLineasTicket">
+    <End Type="Model1.Tecnicos" Role="Tecnicos" Multiplicity="*" />
+    <End Type="Model1.LineasTicket" Role="LineasTicket" Multiplicity="*" />
+  </Association>
+  <Association Name="LineasTicketCabeceraTickets">
+    <End Type="Model1.LineasTicket" Role="LineasTicket" Multiplicity="*" />
+    <End Type="Model1.CabeceraTickets" Role="CabeceraTickets" Multiplicity="1" />
+  </Association>
+</Schema>

@@ -1,0 +1,412 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="ClientesSet" EntityType="Model1.Store.ClientesSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProductosSet" EntityType="Model1.Store.ProductosSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CabeceraTicketsSet" EntityType="Model1.Store.CabeceraTicketsSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LineasTicketSet" EntityType="Model1.Store.LineasTicketSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TecnicosSet" EntityType="Model1.Store.TecnicosSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ClientesProductos" EntityType="Model1.Store.ClientesProductos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TecnicosLineasTicket" EntityType="Model1.Store.TecnicosLineasTicket" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_ClientesProductos_Clientes" Association="Model1.Store.FK_ClientesProductos_Clientes">
+      <End Role="Clientes" EntitySet="ClientesSet" />
+      <End Role="ClientesProductos" EntitySet="ClientesProductos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClientesProductos_Productos" Association="Model1.Store.FK_ClientesProductos_Productos">
+      <End Role="Productos" EntitySet="ProductosSet" />
+      <End Role="ClientesProductos" EntitySet="ClientesProductos" />
+    </AssociationSet>
+    <AssociationSet Name="ClientesCabeceraTickets" Association="Model1.Store.ClientesCabeceraTickets">
+      <End Role="Clientes" EntitySet="ClientesSet" />
+      <End Role="CabeceraTickets" EntitySet="CabeceraTicketsSet" />
+    </AssociationSet>
+    <AssociationSet Name="ProductosCabeceraTickets" Association="Model1.Store.ProductosCabeceraTickets">
+      <End Role="Productos" EntitySet="ProductosSet" />
+      <End Role="CabeceraTickets" EntitySet="CabeceraTicketsSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TecnicosLineasTicket_Tecnicos" Association="Model1.Store.FK_TecnicosLineasTicket_Tecnicos">
+      <End Role="Tecnicos" EntitySet="TecnicosSet" />
+      <End Role="TecnicosLineasTicket" EntitySet="TecnicosLineasTicket" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TecnicosLineasTicket_LineasTicket" Association="Model1.Store.FK_TecnicosLineasTicket_LineasTicket">
+      <End Role="LineasTicket" EntitySet="LineasTicketSet" />
+      <End Role="TecnicosLineasTicket" EntitySet="TecnicosLineasTicket" />
+    </AssociationSet>
+    <AssociationSet Name="LineasTicketCabeceraTickets" Association="Model1.Store.LineasTicketCabeceraTickets">
+      <End Role="LineasTicket" EntitySet="LineasTicketSet" />
+      <End Role="CabeceraTickets" EntitySet="CabeceraTicketsSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ClientesSet">
+    <Key>
+      <PropertyRef Name="Cif" />
+    </Key>
+    <Property Name="Cif" Type="nvarchar" Nullable="false" MaxLength="9" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Direccion" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProductosSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CabeceraTicketsSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FechaApertura" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FechaCierre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TiempoTotal" Type="int" Nullable="false" />
+    <Property Name="Facturable" Type="bit" Nullable="false" />
+    <Property Name="ClientesCif" Type="nvarchar" Nullable="false" MaxLength="9" />
+    <Property Name="ProductosId" Type="int" Nullable="false" />
+    <Property Name="Tipo" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LineasTicketSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Tiempo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CabeceraTickets_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TecnicosSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Correo" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ClientesProductos">
+    <Key>
+      <PropertyRef Name="Clientes_Cif" />
+      <PropertyRef Name="Productos_Id" />
+    </Key>
+    <Property Name="Clientes_Cif" Type="nvarchar" Nullable="false" MaxLength="9" />
+    <Property Name="Productos_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TecnicosLineasTicket">
+    <Key>
+      <PropertyRef Name="Tecnicos_Id" />
+      <PropertyRef Name="LineasTicket_Id" />
+    </Key>
+    <Property Name="Tecnicos_Id" Type="int" Nullable="false" />
+    <Property Name="LineasTicket_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ClientesCabeceraTickets">
+    <End Role="Clientes" Type="Model1.Store.ClientesSet" Multiplicity="1" />
+    <End Role="CabeceraTickets" Type="Model1.Store.CabeceraTicketsSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="Cif" />
+      </Principal>
+      <Dependent Role="CabeceraTickets">
+        <PropertyRef Name="ClientesCif" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProductosCabeceraTickets">
+    <End Role="Productos" Type="Model1.Store.ProductosSet" Multiplicity="1" />
+    <End Role="CabeceraTickets" Type="Model1.Store.CabeceraTicketsSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Productos">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CabeceraTickets">
+        <PropertyRef Name="ProductosId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LineasTicketCabeceraTickets">
+    <End Role="LineasTicket" Type="Model1.Store.LineasTicketSet" Multiplicity="*" />
+    <End Role="CabeceraTickets" Type="Model1.Store.CabeceraTicketsSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="CabeceraTickets">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LineasTicket">
+        <PropertyRef Name="CabeceraTickets_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClientesProductos_Clientes">
+    <End Role="Clientes" Type="Model1.Store.ClientesSet" Multiplicity="1" />
+    <End Role="ClientesProductos" Type="Model1.Store.ClientesProductos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="Cif" />
+      </Principal>
+      <Dependent Role="ClientesProductos">
+        <PropertyRef Name="Clientes_Cif" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClientesProductos_Productos">
+    <End Role="ClientesProductos" Type="Model1.Store.ClientesProductos" Multiplicity="*" />
+    <End Role="Productos" Type="Model1.Store.ProductosSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Productos">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ClientesProductos">
+        <PropertyRef Name="Productos_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TecnicosLineasTicket_Tecnicos">
+    <End Role="Tecnicos" Type="Model1.Store.TecnicosSet" Multiplicity="1" />
+    <End Role="TecnicosLineasTicket" Type="Model1.Store.TecnicosLineasTicket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tecnicos">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TecnicosLineasTicket">
+        <PropertyRef Name="Tecnicos_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TecnicosLineasTicket_LineasTicket">
+    <End Role="TecnicosLineasTicket" Type="Model1.Store.TecnicosLineasTicket" Multiplicity="*" />
+    <End Role="LineasTicket" Type="Model1.Store.LineasTicketSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="LineasTicket">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TecnicosLineasTicket">
+        <PropertyRef Name="LineasTicket_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ClientesSet" EntityType="Model1.Clientes" />
+          <EntitySet Name="ProductosSet" EntityType="Model1.Productos" />
+          <AssociationSet Name="ClientesProductos" Association="Model1.ClientesProductos">
+            <End Role="Clientes" EntitySet="ClientesSet" />
+            <End Role="Productos" EntitySet="ProductosSet" />
+          </AssociationSet>
+          <EntitySet Name="CabeceraTicketsSet" EntityType="Model1.CabeceraTickets" />
+          <AssociationSet Name="ClientesCabeceraTickets" Association="Model1.ClientesCabeceraTickets">
+            <End Role="Clientes" EntitySet="ClientesSet" />
+            <End Role="CabeceraTickets" EntitySet="CabeceraTicketsSet" />
+          </AssociationSet>
+          <AssociationSet Name="ProductosCabeceraTickets" Association="Model1.ProductosCabeceraTickets">
+            <End Role="Productos" EntitySet="ProductosSet" />
+            <End Role="CabeceraTickets" EntitySet="CabeceraTicketsSet" />
+          </AssociationSet>
+          <EntitySet Name="LineasTicketSet" EntityType="Model1.LineasTicket" />
+          <EntitySet Name="TecnicosSet" EntityType="Model1.Tecnicos" />
+          <AssociationSet Name="TecnicosLineasTicket" Association="Model1.TecnicosLineasTicket">
+            <End Role="Tecnicos" EntitySet="TecnicosSet" />
+            <End Role="LineasTicket" EntitySet="LineasTicketSet" />
+          </AssociationSet>
+          <AssociationSet Name="LineasTicketCabeceraTickets" Association="Model1.LineasTicketCabeceraTickets">
+            <End Role="LineasTicket" EntitySet="LineasTicketSet" />
+            <End Role="CabeceraTickets" EntitySet="CabeceraTicketsSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="Cif" />
+          </Key>
+          <Property Name="Cif" Type="String" Nullable="false" annotation:StoreGeneratedPattern="None" MaxLength="9" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <Property Name="Direccion" Type="String" Nullable="false" />
+          <NavigationProperty Name="Productos" Relationship="Model1.ClientesProductos" FromRole="Clientes" ToRole="Productos" />
+          <NavigationProperty Name="CabeceraTickets" Relationship="Model1.ClientesCabeceraTickets" FromRole="Clientes" ToRole="CabeceraTickets" />
+        </EntityType>
+        <EntityType Name="Productos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <NavigationProperty Name="Clientes" Relationship="Model1.ClientesProductos" FromRole="Productos" ToRole="Clientes" />
+          <NavigationProperty Name="CabeceraTickets" Relationship="Model1.ProductosCabeceraTickets" FromRole="Productos" ToRole="CabeceraTickets" />
+        </EntityType>
+        <Association Name="ClientesProductos">
+          <End Type="Model1.Clientes" Role="Clientes" Multiplicity="*" />
+          <End Type="Model1.Productos" Role="Productos" Multiplicity="*" />
+        </Association>
+        <EntityType Name="CabeceraTickets">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FechaApertura" Type="String" Nullable="false" />
+          <Property Name="FechaCierre" Type="String" Nullable="false" />
+          <Property Name="TiempoTotal" Type="Int32" Nullable="false" />
+          <Property Name="Facturable" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Clientes" Relationship="Model1.ClientesCabeceraTickets" FromRole="CabeceraTickets" ToRole="Clientes" />
+          <Property Name="ClientesCif" Type="String" Nullable="false" MaxLength="9" />
+          <NavigationProperty Name="Productos" Relationship="Model1.ProductosCabeceraTickets" FromRole="CabeceraTickets" ToRole="Productos" />
+          <Property Name="ProductosId" Type="Int32" Nullable="false" />
+          <Property Name="Tipo" Type="String" Nullable="false" />
+          <NavigationProperty Name="LineasTicket" Relationship="Model1.LineasTicketCabeceraTickets" FromRole="CabeceraTickets" ToRole="LineasTicket" />
+        </EntityType>
+        <Association Name="ClientesCabeceraTickets">
+          <End Type="Model1.Clientes" Role="Clientes" Multiplicity="1" />
+          <End Type="Model1.CabeceraTickets" Role="CabeceraTickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="Cif" />
+            </Principal>
+            <Dependent Role="CabeceraTickets">
+              <PropertyRef Name="ClientesCif" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProductosCabeceraTickets">
+          <End Type="Model1.Productos" Role="Productos" Multiplicity="1" />
+          <End Type="Model1.CabeceraTickets" Role="CabeceraTickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Productos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CabeceraTickets">
+              <PropertyRef Name="ProductosId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LineasTicket">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" />
+          <Property Name="Tiempo" Type="String" Nullable="false" />
+          <NavigationProperty Name="Tecnicos" Relationship="Model1.TecnicosLineasTicket" FromRole="LineasTicket" ToRole="Tecnicos" />
+          <NavigationProperty Name="CabeceraTickets" Relationship="Model1.LineasTicketCabeceraTickets" FromRole="LineasTicket" ToRole="CabeceraTickets" />
+        </EntityType>
+        <EntityType Name="Tecnicos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" />
+          <Property Name="Correo" Type="String" Nullable="false" />
+          <NavigationProperty Name="LineasTicket" Relationship="Model1.TecnicosLineasTicket" FromRole="Tecnicos" ToRole="LineasTicket" />
+        </EntityType>
+        <Association Name="TecnicosLineasTicket">
+          <End Type="Model1.Tecnicos" Role="Tecnicos" Multiplicity="*" />
+          <End Type="Model1.LineasTicket" Role="LineasTicket" Multiplicity="*" />
+        </Association>
+        <Association Name="LineasTicketCabeceraTickets">
+          <End Type="Model1.LineasTicket" Role="LineasTicket" Multiplicity="*" />
+          <End Type="Model1.CabeceraTickets" Role="CabeceraTickets" Multiplicity="1" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="ClientesSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Clientes)">
+        <MappingFragment StoreEntitySet="ClientesSet">
+          <ScalarProperty Name="Cif" ColumnName="Cif" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductosSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Productos)">
+        <MappingFragment StoreEntitySet="ProductosSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CabeceraTicketsSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.CabeceraTickets)">
+        <MappingFragment StoreEntitySet="CabeceraTicketsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FechaApertura" ColumnName="FechaApertura" />
+          <ScalarProperty Name="FechaCierre" ColumnName="FechaCierre" />
+          <ScalarProperty Name="TiempoTotal" ColumnName="TiempoTotal" />
+          <ScalarProperty Name="Facturable" ColumnName="Facturable" />
+          <ScalarProperty Name="ClientesCif" ColumnName="ClientesCif" />
+          <ScalarProperty Name="ProductosId" ColumnName="ProductosId" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LineasTicketSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.LineasTicket)">
+        <MappingFragment StoreEntitySet="LineasTicketSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Tiempo" ColumnName="Tiempo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TecnicosSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Tecnicos)">
+        <MappingFragment StoreEntitySet="TecnicosSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Correo" ColumnName="Correo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ClientesProductos" TypeName="Model1.ClientesProductos" StoreEntitySet="ClientesProductos">
+      <EndProperty Name="Clientes">
+        <ScalarProperty Name="Cif" ColumnName="Clientes_Cif" />
+      </EndProperty>
+      <EndProperty Name="Productos">
+        <ScalarProperty Name="Id" ColumnName="Productos_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TecnicosLineasTicket" TypeName="Model1.TecnicosLineasTicket" StoreEntitySet="TecnicosLineasTicket">
+      <EndProperty Name="Tecnicos">
+        <ScalarProperty Name="Id" ColumnName="Tecnicos_Id" />
+      </EndProperty>
+      <EndProperty Name="LineasTicket">
+        <ScalarProperty Name="Id" ColumnName="LineasTicket_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="LineasTicketCabeceraTickets" TypeName="Model1.LineasTicketCabeceraTickets" StoreEntitySet="LineasTicketSet">
+      <EndProperty Name="CabeceraTickets">
+        <ScalarProperty Name="Id" ColumnName="CabeceraTickets_Id" />
+      </EndProperty>
+      <EndProperty Name="LineasTicket">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

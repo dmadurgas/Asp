@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="ClientesSet" EntityType="Model1.Store.ClientesSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProductosSet" EntityType="Model1.Store.ProductosSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CabeceraTicketsSet" EntityType="Model1.Store.CabeceraTicketsSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LineasTicketSet" EntityType="Model1.Store.LineasTicketSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TecnicosSet" EntityType="Model1.Store.TecnicosSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ClientesProductos" EntityType="Model1.Store.ClientesProductos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TecnicosLineasTicket" EntityType="Model1.Store.TecnicosLineasTicket" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_ClientesProductos_Clientes" Association="Model1.Store.FK_ClientesProductos_Clientes">
+      <End Role="Clientes" EntitySet="ClientesSet" />
+      <End Role="ClientesProductos" EntitySet="ClientesProductos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClientesProductos_Productos" Association="Model1.Store.FK_ClientesProductos_Productos">
+      <End Role="Productos" EntitySet="ProductosSet" />
+      <End Role="ClientesProductos" EntitySet="ClientesProductos" />
+    </AssociationSet>
+    <AssociationSet Name="ClientesCabeceraTickets" Association="Model1.Store.ClientesCabeceraTickets">
+      <End Role="Clientes" EntitySet="ClientesSet" />
+      <End Role="CabeceraTickets" EntitySet="CabeceraTicketsSet" />
+    </AssociationSet>
+    <AssociationSet Name="ProductosCabeceraTickets" Association="Model1.Store.ProductosCabeceraTickets">
+      <End Role="Productos" EntitySet="ProductosSet" />
+      <End Role="CabeceraTickets" EntitySet="CabeceraTicketsSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TecnicosLineasTicket_Tecnicos" Association="Model1.Store.FK_TecnicosLineasTicket_Tecnicos">
+      <End Role="Tecnicos" EntitySet="TecnicosSet" />
+      <End Role="TecnicosLineasTicket" EntitySet="TecnicosLineasTicket" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TecnicosLineasTicket_LineasTicket" Association="Model1.Store.FK_TecnicosLineasTicket_LineasTicket">
+      <End Role="LineasTicket" EntitySet="LineasTicketSet" />
+      <End Role="TecnicosLineasTicket" EntitySet="TecnicosLineasTicket" />
+    </AssociationSet>
+    <AssociationSet Name="LineasTicketCabeceraTickets" Association="Model1.Store.LineasTicketCabeceraTickets">
+      <End Role="LineasTicket" EntitySet="LineasTicketSet" />
+      <End Role="CabeceraTickets" EntitySet="CabeceraTicketsSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ClientesSet">
+    <Key>
+      <PropertyRef Name="Cif" />
+    </Key>
+    <Property Name="Cif" Type="nvarchar" Nullable="false" MaxLength="9" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Direccion" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProductosSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CabeceraTicketsSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FechaApertura" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FechaCierre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TiempoTotal" Type="int" Nullable="false" />
+    <Property Name="Facturable" Type="bit" Nullable="false" />
+    <Property Name="ClientesCif" Type="nvarchar" Nullable="false" MaxLength="9" />
+    <Property Name="ProductosId" Type="int" Nullable="false" />
+    <Property Name="Tipo" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LineasTicketSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Tiempo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CabeceraTickets_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TecnicosSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Correo" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ClientesProductos">
+    <Key>
+      <PropertyRef Name="Clientes_Cif" />
+      <PropertyRef Name="Productos_Id" />
+    </Key>
+    <Property Name="Clientes_Cif" Type="nvarchar" Nullable="false" MaxLength="9" />
+    <Property Name="Productos_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TecnicosLineasTicket">
+    <Key>
+      <PropertyRef Name="Tecnicos_Id" />
+      <PropertyRef Name="LineasTicket_Id" />
+    </Key>
+    <Property Name="Tecnicos_Id" Type="int" Nullable="false" />
+    <Property Name="LineasTicket_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ClientesCabeceraTickets">
+    <End Role="Clientes" Type="Model1.Store.ClientesSet" Multiplicity="1" />
+    <End Role="CabeceraTickets" Type="Model1.Store.CabeceraTicketsSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="Cif" />
+      </Principal>
+      <Dependent Role="CabeceraTickets">
+        <PropertyRef Name="ClientesCif" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProductosCabeceraTickets">
+    <End Role="Productos" Type="Model1.Store.ProductosSet" Multiplicity="1" />
+    <End Role="CabeceraTickets" Type="Model1.Store.CabeceraTicketsSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Productos">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CabeceraTickets">
+        <PropertyRef Name="ProductosId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LineasTicketCabeceraTickets">
+    <End Role="LineasTicket" Type="Model1.Store.LineasTicketSet" Multiplicity="*" />
+    <End Role="CabeceraTickets" Type="Model1.Store.CabeceraTicketsSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="CabeceraTickets">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LineasTicket">
+        <PropertyRef Name="CabeceraTickets_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClientesProductos_Clientes">
+    <End Role="Clientes" Type="Model1.Store.ClientesSet" Multiplicity="1" />
+    <End Role="ClientesProductos" Type="Model1.Store.ClientesProductos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="Cif" />
+      </Principal>
+      <Dependent Role="ClientesProductos">
+        <PropertyRef Name="Clientes_Cif" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClientesProductos_Productos">
+    <End Role="ClientesProductos" Type="Model1.Store.ClientesProductos" Multiplicity="*" />
+    <End Role="Productos" Type="Model1.Store.ProductosSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Productos">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ClientesProductos">
+        <PropertyRef Name="Productos_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TecnicosLineasTicket_Tecnicos">
+    <End Role="Tecnicos" Type="Model1.Store.TecnicosSet" Multiplicity="1" />
+    <End Role="TecnicosLineasTicket" Type="Model1.Store.TecnicosLineasTicket" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tecnicos">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TecnicosLineasTicket">
+        <PropertyRef Name="Tecnicos_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TecnicosLineasTicket_LineasTicket">
+    <End Role="TecnicosLineasTicket" Type="Model1.Store.TecnicosLineasTicket" Multiplicity="*" />
+    <End Role="LineasTicket" Type="Model1.Store.LineasTicketSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="LineasTicket">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TecnicosLineasTicket">
+        <PropertyRef Name="LineasTicket_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

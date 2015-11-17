@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="ClientesSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Clientes)">
+        <MappingFragment StoreEntitySet="ClientesSet">
+          <ScalarProperty Name="Cif" ColumnName="Cif" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductosSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Productos)">
+        <MappingFragment StoreEntitySet="ProductosSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CabeceraTicketsSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.CabeceraTickets)">
+        <MappingFragment StoreEntitySet="CabeceraTicketsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FechaApertura" ColumnName="FechaApertura" />
+          <ScalarProperty Name="FechaCierre" ColumnName="FechaCierre" />
+          <ScalarProperty Name="TiempoTotal" ColumnName="TiempoTotal" />
+          <ScalarProperty Name="Facturable" ColumnName="Facturable" />
+          <ScalarProperty Name="ClientesCif" ColumnName="ClientesCif" />
+          <ScalarProperty Name="ProductosId" ColumnName="ProductosId" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LineasTicketSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.LineasTicket)">
+        <MappingFragment StoreEntitySet="LineasTicketSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Tiempo" ColumnName="Tiempo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TecnicosSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Tecnicos)">
+        <MappingFragment StoreEntitySet="TecnicosSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Correo" ColumnName="Correo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ClientesProductos" TypeName="Model1.ClientesProductos" StoreEntitySet="ClientesProductos">
+      <EndProperty Name="Clientes">
+        <ScalarProperty Name="Cif" ColumnName="Clientes_Cif" />
+      </EndProperty>
+      <EndProperty Name="Productos">
+        <ScalarProperty Name="Id" ColumnName="Productos_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TecnicosLineasTicket" TypeName="Model1.TecnicosLineasTicket" StoreEntitySet="TecnicosLineasTicket">
+      <EndProperty Name="Tecnicos">
+        <ScalarProperty Name="Id" ColumnName="Tecnicos_Id" />
+      </EndProperty>
+      <EndProperty Name="LineasTicket">
+        <ScalarProperty Name="Id" ColumnName="LineasTicket_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="LineasTicketCabeceraTickets" TypeName="Model1.LineasTicketCabeceraTickets" StoreEntitySet="LineasTicketSet">
+      <EndProperty Name="CabeceraTickets">
+        <ScalarProperty Name="Id" ColumnName="CabeceraTickets_Id" />
+      </EndProperty>
+      <EndProperty Name="LineasTicket">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

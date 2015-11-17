@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c1fdfe46b7214a5997607023d1f9f65d" Name="Diagram1" >
+        <EntityTypeShape EntityType="Model1.Clientes" Width="1.5" PointX="0.5" PointY="0.5" />
+        <EntityTypeShape EntityType="Model1.Productos" Width="1.5" PointX="0.5" PointY="2.875" />
+        <AssociationConnector Association="Model1.ClientesProductos" />
+        <EntityTypeShape EntityType="Model1.CabeceraTickets" Width="1.5" PointX="4.875" PointY="0.5" />
+        <AssociationConnector Association="Model1.ClientesCabeceraTickets" />
+        <AssociationConnector Association="Model1.ProductosCabeceraTickets" />
+        <EntityTypeShape EntityType="Model1.LineasTicket" Width="1.5" PointX="5.125" PointY="4.125" />
+        <EntityTypeShape EntityType="Model1.Tecnicos" Width="1.5" PointX="7.625" PointY="2.875" />
+        <AssociationConnector Association="Model1.TecnicosLineasTicket" />
+        <AssociationConnector Association="Model1.LineasTicketCabeceraTickets" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
